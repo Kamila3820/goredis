@@ -14,7 +14,7 @@ services:
     image: grafana/k6
     container_name: k6
     environment:
-      - K6_OUT=influx=http://influxdb:8086/k6
+      - K6_OUT=influxdb=http://influxdb:8086/k6
     volumes:
       - ./scripts:/scripts
 
