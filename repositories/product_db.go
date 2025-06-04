@@ -8,7 +8,7 @@ type productRepositoryDB struct {
 	db *gorm.DB
 }
 
-func NewProductRepositoryDB(db *gorm.DB) ProductRepository {
+func NewProductRepositoryDB(db *gorm.DB) IProductRepository {
 	db.AutoMigrate(&product{})
 	mockData(db)
 	return &productRepositoryDB{

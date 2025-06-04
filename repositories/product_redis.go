@@ -15,7 +15,7 @@ type productRepositoryRedis struct {
 	redisClient *redis.Client
 }
 
-func NewProductRepositoryRedis(db *gorm.DB, redisClient *redis.Client) ProductRepository {
+func NewProductRepositoryRedis(db *gorm.DB, redisClient *redis.Client) IProductRepository {
 	db.AutoMigrate(&product{})
 	mockData(db)
 	return &productRepositoryRedis{
@@ -32,7 +32,7 @@ func (r *productRepositoryRedis) GetProducts() (products []product, err error) {
 	if err == nil {
 		err = json.Unmarshal([]byte(productsJson), &products)
 		if err == nil {
-			fmt.Println("Redis")
+			fmt.Println("Redis Repository")
 			return products, nil
 		}
 	}

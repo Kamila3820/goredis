@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"goredis/repositories"
+	"goredis/services"
 
 	"github.com/go-redis/redis/v8"
 	"gorm.io/driver/mysql"
@@ -12,14 +13,17 @@ import (
 func main() {
 	db := initDatabase()
 	redisClient := initRedis()
+	_ = redisClient
 
-	productRepo := repositories.NewProductRepositoryRedis(db, redisClient)
+	productRepo := repositories.NewProductRepositoryDB(db)
+	productService := services.NewCatalogSreviceRedis(productRepo, redisClient)
 
-	products, err := productRepo.GetProducts()
+	products, err := productService.GetProducts()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+	fmt.Println("Result: ")
 	fmt.Println(products)
 	// app := fiber.New()
 

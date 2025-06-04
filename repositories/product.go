@@ -14,7 +14,7 @@ type product struct {
 	Quantity int
 }
 
-type ProductRepository interface {
+type IProductRepository interface {
 	GetProducts() ([]product, error)
 }
 
