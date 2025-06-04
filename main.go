@@ -17,8 +17,8 @@ func main() {
 	_ = redisClient
 
 	productRepo := repositories.NewProductRepositoryDB(db)
-	productService := services.NewCatalogSreviceRedis(productRepo, redisClient)
-	productHandler := handlers.NewCatalogHandler(productService)
+	productService := services.NewCatalogService(productRepo)
+	productHandler := handlers.NewCatalogHandlerRedis(productService, redisClient)
 
 	app := fiber.New()
 	app.Get("/products", productHandler.GetProducts)
